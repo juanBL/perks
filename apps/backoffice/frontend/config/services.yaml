@@ -1,0 +1,99 @@
+imports:
+  - { resource: ../../../../src/Backoffice/Shared/Infrastructure/Symfony/DependencyInjection/backoffice_services.yaml }
+  - { resource: ../../../../src/Mooc/Shared/Infrastructure/Symfony/DependencyInjection/mooc_services.yaml }
+
+services:
+  _defaults:
+    autoconfigure: true
+    autowire: true
+
+  # Configure
+  _instanceof:
+    Perks\Shared\Domain\Bus\Event\DomainEventSubscriber:
+      tags: ['perks.domain_event_subscriber']
+
+    Perks\Shared\Domain\Bus\Command\CommandHandler:
+      tags: ['perks.command_handler']
+
+    Perks\Shared\Domain\Bus\Query\QueryHandler:
+      tags: ['perks.query_handler']
+
+  Perks\Apps\Backoffice\Frontend\Controller\:
+    resource: '../src/Controller'
+    tags: ['controller.service_arguments']
+
+
+  # Wire
+  Perks\Shared\:
+    resource: '../../../../src/Shared'
+
+  Perks\Backoffice\:
+    resource: '../../../../src/Backoffice'
+
+  Perks\Mooc\:
+    resource: '../../../../src/Mooc'
+
+  # -- TAGGING --
+  Perks\Shared\Infrastructure\Bus\Event\InMemory\InMemorySymfonyEventBus:
+    arguments: [!tagged perks.domain_event_subscriber]
+    lazy: true
+
+  Perks\Shared\Infrastructure\Bus\Event\DomainEventMapping:
+    arguments: [!tagged perks.domain_event_subscriber]
+
+  Perks\Shared\Infrastructure\Bus\Event\DomainEventSubscriberLocator:
+    arguments: [!tagged perks.domain_event_subscriber]
+
+  Perks\Shared\Infrastructure\Doctrine\DatabaseConnections:
+    arguments: [!tagged perks.database_connection]
+
+  Perks\Shared\Infrastructure\Symfony\ApiExceptionListener:
+    tags:
+      - { name: kernel.event_listener, event: kernel.exception, method: onException }
+
+  Perks\Shared\Infrastructure\Symfony\AddJsonBodyToRequestListener:
+    tags:
+      - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+
+
+  # -- APP DEFINITIONS --
+  # Command/Query Handlers
+  Perks\Shared\Infrastructure\Bus\Command\InMemorySymfonyCommandBus:
+    arguments: [!tagged perks.command_handler]
+
+  Perks\Shared\Infrastructure\Bus\Query\InMemorySymfonyQueryBus:
+    arguments: [!tagged perks.query_handler]
+
+  # RabbitMQ
+  Perks\Shared\Infrastructure\Bus\Event\RabbitMq\RabbitMqConnection:
+    arguments:
+      - host: '%env(RABBITMQ_HOST)%'
+        port: '%env(RABBITMQ_PORT)%'
+        vhost: '%env(RABBITMQ_MOOC_VHOST)%'
+        login: '%env(RABBITMQ_LOGIN)%'
+        password: '%env(RABBITMQ_PASSWORD)%'
+        read_timeout: 2
+        write_timeout: 2
+        connect_timeout: 5
+
+  Perks\Shared\Infrastructure\Bus\Event\RabbitMq\RabbitMqEventBus:
+    arguments: ['@Perks\Shared\Infrastructure\Bus\Event\RabbitMq\RabbitMqConnection', '%env(RABBITMQ_EXCHANGE)%']
+
+  Perks\Shared\Infrastructure\Elasticsearch\ElasticsearchClient:
+    factory: '@Perks\Shared\Infrastructure\Elasticsearch\ElasticsearchClientFactory'
+    arguments:
+      - '%env(BACKOFFICE_ELASTICSEARCH_HOST)%'
+      - '%env(BACKOFFICE_ELASTICSEARCH_INDEX_PREFIX)%'
+      - '%kernel.project_dir%/../../../databases/backoffice'
+      - '%env(APP_ENV)%'
+    public: true
+
+  # -- IMPLEMENTATIONS SELECTOR --
+  Perks\Shared\Domain\Bus\Event\EventBus: '@Perks\Shared\Infrastructure\Bus\Event\RabbitMq\RabbitMqEventBus'
+  Perks\Backoffice\Courses\Domain\BackofficeCourseRepository: '@Perks\Backoffice\Courses\Infrastructure\Persistence\ElasticsearchBackofficeCourseRepository'
+
+twig:
+  default_path: '%kernel.project_dir%/templates'
+  strict_variables: true
+  globals:
+    flash: '@Perks\Shared\Infrastructure\Symfony\FlashSession'
