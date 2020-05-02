@@ -7,8 +7,6 @@ namespace Perks\Company\Company\Infrastructure\Persistence;
 use Perks\Company\Company\Domain\Company;
 use Perks\Company\Company\Domain\CompanyRepository;
 use Perks\Company\Shared\Domain\Companies\CompanyId;
-use Perks\Shared\Domain\Criteria\Criteria;
-use Perks\Shared\Infrastructure\Persistence\Doctrine\DoctrineCriteriaConverter;
 use Perks\Shared\Infrastructure\Persistence\Doctrine\DoctrineRepository;
 
 final class DoctrineCompanyRepository extends DoctrineRepository implements CompanyRepository

@@ -9,6 +9,7 @@
         <embedded name="name" class="Perks\Company\Company\Domain\CompanyName" use-column-prefix="false" />
         <embedded name="logo" class="Perks\Company\Company\Domain\CompanyLogo" use-column-prefix="false" />
         <embedded name="numberEmployees" class="Perks\Company\Company\Domain\CompanyNumberEmployees" use-column-prefix="false" />
+        <embedded name="active" class="Perks\Company\Company\Domain\CompanyActive" use-column-prefix="false" />
         <field name="perks" type="perks" column="perks"/>
     </entity>
 

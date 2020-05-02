@@ -14,19 +14,22 @@ final class Company extends AggregateRoot
     private CompanyLogo            $logo;
     private CompanyNumberEmployees $numberEmployees;
     private CompanyPerks           $perks;
+    private CompanyActive          $active;
 
     public function __construct(
         CompanyId $id,
         CompanyName $name,
         CompanyLogo $logo,
         CompanyNumberEmployees $numberEmployees,
-        CompanyPerks $perks
+        CompanyPerks $perks,
+        CompanyActive $active
     ) {
         $this->id              = $id;
         $this->name            = $name;
         $this->logo            = $logo;
         $this->numberEmployees = $numberEmployees;
         $this->perks           = $perks;
+        $this->active          = $active;
     }
 
     public static function create(
@@ -34,10 +37,11 @@ final class Company extends AggregateRoot
         CompanyName $name,
         CompanyLogo $logo,
         CompanyNumberEmployees $numberEmployees,
-        CompanyPerks $perks
+        CompanyPerks $perks,
+        CompanyActive $active
     ): self {
         return new self(
-            $id, $name, $logo, $numberEmployees, $perks
+            $id, $name, $logo, $numberEmployees, $perks, $active
         );
     }
 
@@ -64,5 +68,15 @@ final class Company extends AggregateRoot
     public function perks(): CompanyPerks
     {
         return $this->perks;
+    }
+
+    public function active(): CompanyActive
+    {
+        return $this->active;
+    }
+
+    public function deactive(): CompanyActive
+    {
+        return $this->active = new CompanyActive(false);
     }
 }

@@ -43,16 +43,16 @@ abstract class WebController extends ApiController
         return new SymfonyResponse($this->twig->render($templatePath, $arguments));
     }
 
-    public function redirect(string $routeName): RedirectResponse
+    public function redirect(string $routeName, ?array $params = []): RedirectResponse
     {
-        return new RedirectResponse($this->router->generate($routeName), 302);
+        return new RedirectResponse($this->router->generate($routeName, $params), 302);
     }
 
-    public function redirectWithMessage(string $routeName, string $message): RedirectResponse
+    public function redirectWithMessage(string $routeName, string $message, ?array $params = []): RedirectResponse
     {
         $this->addFlashFor('message', [$message]);
 
-        return $this->redirect($routeName);
+        return $this->redirect($routeName, $params);
     }
 
     public function redirectWithErrors(

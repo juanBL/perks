@@ -15,7 +15,7 @@ use Perks\Company\Shared\Domain\Perks\PerkName;
 use Perks\Shared\Domain\Bus\Command\CommandHandler;
 use function Lambdish\Phunctional\map;
 
-final class CreatecompanyCommandHandler implements CommandHandler
+final class CreateCompanyCommandHandler implements CommandHandler
 {
     private CompanyCreator $creator;
 

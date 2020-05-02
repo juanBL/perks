@@ -14,9 +14,16 @@
                 {% endfor %}
             </div>
 
+            <a  href="{{ path('company_deactivate_put', {'companyId': company.id}) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                Deactivate company
+            </a>
         </div>
     </div>
     <div class="clearfix mb-10"></div>
     <hr class="mb-10">
+
+    <a  href="{{ path('company_get') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+        Volver al listado
+    </a>
 
 {% endblock %}
