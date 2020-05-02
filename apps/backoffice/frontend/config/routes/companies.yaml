@@ -7,3 +7,8 @@ company_post:
   path: /company
   controller: Perks\Apps\Backoffice\Frontend\Controller\Companies\CompaniesPostWebController
   methods:  [POST]
+
+company_profile_get:
+  path: /company/{companyId}
+  controller: Perks\Apps\Backoffice\Frontend\Controller\Companies\CompanyProfileGetWebController
+  methods:  [GET]

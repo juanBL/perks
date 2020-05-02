@@ -7,16 +7,18 @@
         <div class="px-6 py-4">
             <div class="font-bold text-xl mb-2">Companies</div>
             {% for company in companies %}
-                <div class="max-w-sm rounded overflow-hidden shadow-lg">
-                    <div class="flex mb-4">Empresa: {{ company.name }}</div>
-                    <div class="flex mb-4">Numero de empleados: {{ company.numberEmployees }}</div>
-                    <div class="flex mb-4">
-                        Perks:
-                        {% for perk in company.perks %}
-                            {{ perk.name }}
-                        {% endfor %}
+                <a href="{{ path('company_profile_get', {'id': company.id}) }}">
+                    <div class="max-w-sm rounded overflow-hidden shadow-lg">
+                        <div class="flex mb-4">Empresa: {{ company.name }}</div>
+                        <div class="flex mb-4">Numero de empleados: {{ company.numberEmployees }}</div>
+                        <div class="flex mb-4">
+                            Perks:
+                            {% for perk in company.perks %}
+                                {{ perk.name }}
+                            {% endfor %}
+                        </div>
                     </div>
-                </div>
+                </a>
             {% endfor %}
         </div>
     </div>

@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Perks\Company\Company\Application;
 
-final class CompanyResponse
+use Perks\Shared\Domain\Bus\Query\Response;
+
+final class CompanyResponse implements Response
 {
     private string $id;
     private string $name;
