@@ -1,5 +1,5 @@
 imports:
-  - { resource: ../../../../src/Backoffice/Shared/Infrastructure/Symfony/DependencyInjection/backoffice_services.yaml }
+  - { resource: ../../../../src/Company/Shared/Infrastructure/Symfony/DependencyInjection/company_services.yaml }
 
 services:
   _defaults:
@@ -25,9 +25,6 @@ services:
   # Wire
   Perks\Shared\:
     resource: '../../../../src/Shared'
-
-  Perks\Backoffice\:
-    resource: '../../../../src/Backoffice'
 
   # -- TAGGING --
   Perks\Shared\Infrastructure\Bus\Event\InMemory\InMemorySymfonyEventBus:
@@ -64,30 +61,8 @@ services:
   Perks\Shared\Infrastructure\Bus\Query\InMemorySymfonyQueryBus:
     arguments: [!tagged perks.query_handler]
 
-  # RabbitMQ
-  Perks\Shared\Infrastructure\Bus\Event\RabbitMq\RabbitMqConnection:
-    arguments:
-      - host: '%env(RABBITMQ_HOST)%'
-        port: '%env(RABBITMQ_PORT)%'
-        vhost: '%env(RABBITMQ_MOOC_VHOST)%'
-        login: '%env(RABBITMQ_LOGIN)%'
-        password: '%env(RABBITMQ_PASSWORD)%'
-        read_timeout: 2
-        write_timeout: 2
-        connect_timeout: 5
-
   Perks\Shared\Infrastructure\Bus\Event\RabbitMq\RabbitMqEventBus:
     arguments: ['@Perks\Shared\Infrastructure\Bus\Event\RabbitMq\RabbitMqConnection', '%env(RABBITMQ_EXCHANGE)%']
 
-  Perks\Shared\Infrastructure\Elasticsearch\ElasticsearchClient:
-    factory: '@Perks\Shared\Infrastructure\Elasticsearch\ElasticsearchClientFactory'
-    arguments:
-      - '%env(BACKOFFICE_ELASTICSEARCH_HOST)%'
-      - '%env(BACKOFFICE_ELASTICSEARCH_INDEX_PREFIX)%'
-      - '%kernel.project_dir%/../../../databases/backoffice'
-      - '%env(APP_ENV)%'
-    public: true
-
   # -- IMPLEMENTATIONS SELECTOR --
   Perks\Shared\Domain\Bus\Event\EventBus: '@Perks\Shared\Infrastructure\Bus\Event\RabbitMq\RabbitMqEventBus'
-  Perks\Backoffice\Courses\Domain\BackofficeCourseRepository: '@Perks\Backoffice\Courses\Infrastructure\Persistence\ElasticsearchBackofficeCourseRepository'

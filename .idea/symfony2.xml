@@ -2,5 +2,10 @@
 <project version="4">
   <component name="Symfony2PluginSettings">
     <option name="pluginEnabled" value="true" />
+    <option name="twigNamespaces">
+      <list>
+        <twig_namespace custom="true" namespace="template-bo-frontend" namespaceType="ADD_PATH" path="apps/backoffice/frontend/templates" />
+      </list>
+    </option>
   </component>
 </project>

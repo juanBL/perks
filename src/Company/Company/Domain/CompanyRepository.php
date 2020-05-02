@@ -12,4 +12,5 @@ interface CompanyRepository
 
     public function search(CompanyId $id): ?Company;
 
+    public function searchAll(): array;
 }

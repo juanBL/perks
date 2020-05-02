@@ -1,11 +1,12 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Perks\Shared\Infrastructure\Symfony;
 
 use Perks\Shared\Domain\Bus\Command\CommandBus;
 use Perks\Shared\Domain\Bus\Query\QueryBus;
+use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
@@ -16,9 +17,10 @@ use Twig\Environment;
 
 abstract class WebController extends ApiController
 {
-    private Environment      $twig;
-    private RouterInterface  $router;
-    private SessionInterface $session;
+    private Environment          $twig;
+    private RouterInterface      $router;
+    private SessionInterface     $session;
+    private FormFactoryInterface $form;
 
     public function __construct(
         Environment $twig,
@@ -26,13 +28,14 @@ abstract class WebController extends ApiController
         SessionInterface $session,
         QueryBus $queryBus,
         CommandBus $commandBus,
-        ApiExceptionsHttpStatusCodeMapping $exceptionHandler
+        ApiExceptionsHttpStatusCodeMapping $exceptionHandler,
+        FormFactoryInterface $form
     ) {
         parent::__construct($queryBus, $commandBus, $exceptionHandler);
-
         $this->twig    = $twig;
         $this->router  = $router;
         $this->session = $session;
+        $this->form    = $form;
     }
 
     public function render(string $templatePath, array $arguments = []): SymfonyResponse
@@ -78,5 +81,10 @@ abstract class WebController extends ApiController
         foreach ($messages as $key => $message) {
             $this->session->getFlashBag()->set($prefix . '.' . $key, $message);
         }
+    }
+
+    public function form(): FormFactoryInterface
+    {
+        return $this->form;
     }
 }

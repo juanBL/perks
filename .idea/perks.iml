@@ -8,6 +8,9 @@
       <sourceFolder url="file://$MODULE_DIR$/apps/backoffice/frontend/src" isTestSource="false" packagePrefix="Perks\Apps\Backoffice\Frontend\" />
       <sourceFolder url="file://$MODULE_DIR$/apps/backoffice/backend/src" isTestSource="false" packagePrefix="Perks\Apps\Backoffice\Backend\" />
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" packagePrefix="Perks\" />
+      <sourceFolder url="file://$MODULE_DIR$/apps" isTestSource="false" />
+      <excludeFolder url="file://$MODULE_DIR$/apps/backoffice/frontend/var" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/behat/behat" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/behat/gherkin" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/behat/mink" />

@@ -21,6 +21,7 @@ final class ApiExceptionListener
 
     public function onException(RequestEvent $event): void
     {
+        dump($event->getThrowable());die;
         $exception = $event->getException();
 
         $event->setResponse(

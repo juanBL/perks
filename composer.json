@@ -21,7 +21,7 @@
     }
   ],
   "require": {
-    "php": "7.4",
+    "php": ">7.4",
 
     "ext-amqp": "*",
     "ext-apcu": "*",
@@ -45,7 +45,8 @@
     "ocramius/proxy-manager": "^2.6",
 
     "elasticsearch/elasticsearch": "^7.3",
-    "monolog/monolog": "^2.0"
+    "monolog/monolog": "^2.0",
+    "symfony/form": "^5.0"
   },
   "require-dev": {
     "ext-xdebug": "*",

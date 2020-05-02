@@ -1,0 +1,9 @@
+company_get:
+  path: /company
+  controller: Perks\Apps\Backoffice\Frontend\Controller\Companies\CompaniesGetWebController
+  methods:  [GET]
+
+company_post:
+  path: /company
+  controller: Perks\Apps\Backoffice\Frontend\Controller\Companies\CompaniesPostWebController
+  methods:  [POST]

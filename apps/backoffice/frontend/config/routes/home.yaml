@@ -1,4 +1,0 @@
-home_get:
-  path: /
-  controller: Perks\Apps\Backoffice\Frontend\Controller\Home\HomeGetController
-  methods:  [GET]

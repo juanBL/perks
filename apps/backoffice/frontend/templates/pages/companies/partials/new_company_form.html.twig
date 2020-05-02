@@ -1,0 +1,11 @@
+<form class="w-full max-w-lg float-right" method="post" action="{{ path('company_post') }}">
+    <h2 class="block uppercase tracking-wide text-gray-700 text-3xl font-bold mb-2">Crear empresa</h2>
+    {{ form_start(form) }}
+    {{ form_start(form, { 'action': path('company_post') }) }}
+    {{ form_row(form.name) }}
+    {{ form_row(form.logo) }}
+    {{ form_row(form.numberEmployees) }}
+    {{ form_row(form.perks) }}
+    {{ form_row(form.submit) }}
+    {{ form_end(form) }}
+</form>

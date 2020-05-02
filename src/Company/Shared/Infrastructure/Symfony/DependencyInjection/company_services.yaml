@@ -1,0 +1,21 @@
+services:
+    # Databases
+    custom_em_company:
+        class: Doctrine\ORM\EntityManager
+        factory: [Perks\Company\Shared\Infrastructure\Doctrine\CompanyEntityManagerFactory, create]
+        arguments:
+            -   driver:   '%env(COMPANY_DATABASE_DRIVER)%'
+                host:     '%env(COMPANY_DATABASE_HOST)%'
+                port:     '%env(COMPANY_DATABASE_PORT)%'
+                dbname:   '%env(COMPANY_DATABASE_NAME)%'
+                user:     '%env(COMPANY_DATABASE_USER)%'
+                password: '%env(COMPANY_DATABASE_PASSWORD)%'
+            - '%env(APP_ENV)%'
+        tags:
+            - { name: perks.database_connection }
+        public: true
+
+    Doctrine\ORM\EntityManager:
+        alias: custom_em_company
+
+    Perks\Company\Company\Domain\CompanyRepository: '@Perks\Company\Company\Infrastructure\Persistence\DoctrineCompanyRepository'

@@ -7,6 +7,8 @@ namespace Perks\Company\Company\Infrastructure\Persistence;
 use Perks\Company\Company\Domain\Company;
 use Perks\Company\Company\Domain\CompanyRepository;
 use Perks\Company\Shared\Domain\Companies\CompanyId;
+use Perks\Shared\Domain\Criteria\Criteria;
+use Perks\Shared\Infrastructure\Persistence\Doctrine\DoctrineCriteriaConverter;
 use Perks\Shared\Infrastructure\Persistence\Doctrine\DoctrineRepository;
 
 final class DoctrineCompanyRepository extends DoctrineRepository implements CompanyRepository
@@ -19,5 +21,10 @@ final class DoctrineCompanyRepository extends DoctrineRepository implements Comp
     public function search(CompanyId $id): ?Company
     {
         return $this->repository(Company::class)->find($id);
+    }
+
+    public function searchAll(): array
+    {
+        return $this->repository(Company::class)->findAll();
     }
 }
