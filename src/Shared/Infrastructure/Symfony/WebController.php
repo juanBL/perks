@@ -66,6 +66,17 @@ abstract class WebController extends ApiController
         return new RedirectResponse($this->router->generate($routeName), 302);
     }
 
+    public function redirectWithCustomError(
+        string $routeName,
+        string $error,
+        Request $request
+    ): RedirectResponse {
+        $this->addFlashFor('errors', $this->formatFlashErrors($error));
+        $this->addFlashFor('inputs', $request->request->all());
+
+        return new RedirectResponse($this->router->generate($routeName), 302);
+    }
+
     private function formatFlashErrors(ConstraintViolationListInterface $violations): array
     {
         $errors = [];
