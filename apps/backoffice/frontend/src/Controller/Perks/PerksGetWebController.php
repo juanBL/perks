@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Perks\Apps\Backoffice\Frontend\Controller\Perks;
 
+use Perks\Apps\Backoffice\Frontend\Controller\Perks\Form\Type\PerkType;
 use Perks\Company\Perk\Application\PerkResponse;
 use Perks\Company\Perk\Application\PerksResponse;
 use Perks\Company\Perk\Application\SearchAll\SearchAllPerksQuery;
@@ -24,10 +25,13 @@ final class PerksGetWebController extends WebController
         /** @var PerksResponse $perksResponse */
         $perksResponse = $this->ask(new SearchAllPerksQuery());
 
+        $form = $this->form()->create(PerkType::class);
+
         return $this->render(
             'pages/perks/perks.html.twig',
             [
                 'perks' => map($this->toArray(), $perksResponse->perks()),
+                'form'  => $form->createView()
             ]
         );
     }

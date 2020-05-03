@@ -2,3 +2,8 @@ perks_get:
   path: /perks
   controller: Perks\Apps\Backoffice\Frontend\Controller\Perks\PerksGetWebController
   methods:  [GET]
+
+perk_post:
+  path: /perks
+  controller: Perks\Apps\Backoffice\Frontend\Controller\Perks\PerksPostWebController
+  methods:  [POST]

@@ -7,14 +7,13 @@
         <div class="px-6 py-4">
             <div class="font-bold text-xl mb-2">Perks</div>
             {% for perk in perks %}
-                <a href="{{ path('company_profile_get', {'companyId': company.id}) }}">
-                    <div class="max-w-sm rounded overflow-hidden shadow-lg">
-                        <div class="flex mb-4">Nopmbre: {{ perk.name }}</div>
-                    </div>
-                </a>
+                <div class="max-w-sm rounded overflow-hidden shadow-lg">
+                    <div class="flex mb-4">Nombre: {{ perk.name }}</div>
+                </div>
             {% endfor %}
         </div>
     </div>
+    {{ include('pages/perks/partials/new_perk_form.html.twig') }}
     <div class="clearfix mb-10"></div>
     <hr class="mb-10">
 

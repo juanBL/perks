@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace Perks\Company\Perk\Domain;
 
 use Perks\Company\Shared\Domain\Perks\PerkId;
+use Perks\Shared\Domain\Aggregate\AggregateRoot;
 
-final class Perk
+final class Perk extends AggregateRoot
 {
     private PerkId   $id;
     private PerkName $name;
@@ -15,6 +16,11 @@ final class Perk
     {
         $this->id   = $id;
         $this->name = $name;
+    }
+
+    public static function create(PerkId $id, PerkName $name): self
+    {
+        return new self($id, $name);
     }
 
     public function id(): PerkId

@@ -10,6 +10,11 @@ use Perks\Shared\Infrastructure\Persistence\Doctrine\DoctrineRepository;
 
 final class DoctrinePerksRepository extends DoctrineRepository implements PerkRepository
 {
+    public function save(Perk $perk): void
+    {
+        $this->persist($perk);
+    }
+
     public function searchAll(): array
     {
         return $this->repository(Perk::class)->findAll();

@@ -1,0 +1,14 @@
+{{ form_start(form, { 'action': path('perk_post'), 'attr': { 'class': 'w-full max-w-lg float-right bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4' } }) }}
+
+<h2 class="block uppercase tracking-wide text-gray-700 text-3xl font-bold mb-2">Crear perk</h2>
+
+<div class="mb-6">
+    {{ form_label(form.name, 'Nombre', {'attr': {'class': 'block text-gray-700 text-sm font-bold mb-2'}}) }}
+    {{ form_widget(form.name, {'attr': {'class': 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'}}) }}
+</div>
+
+<div class="flex items-center justify-between">
+    {{ form_widget(form.submit, {'attr': {'class': 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'}}) }}
+</div>
+{{ form_end(form) }}
+
