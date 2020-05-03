@@ -1,0 +1,4 @@
+perks_get:
+  path: /perks
+  controller: Perks\Apps\Backoffice\Frontend\Controller\Perks\PerksGetWebController
+  methods:  [GET]

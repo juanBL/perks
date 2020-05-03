@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Perks\Company\Company\Application\Create;
 
 use Perks\Company\Company\Domain\Company;
+use Perks\Company\Company\Domain\CompanyActive;
 use Perks\Company\Company\Domain\CompanyLogo;
 use Perks\Company\Company\Domain\CompanyName;
 use Perks\Company\Company\Domain\CompanyNumberEmployees;
@@ -28,7 +29,7 @@ final class CompanyCreator
         CompanyNumberEmployees $numberEmployees,
         CompanyPerks $perks
     ): void {
-        $company = Company::create($id, $name, $logo, $numberEmployees, $perks);
+        $company = Company::create($id, $name, $logo, $numberEmployees, $perks, new CompanyActive(true));
 
         $this->repository->save($company);
     }

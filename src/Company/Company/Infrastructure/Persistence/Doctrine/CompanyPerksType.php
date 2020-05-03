@@ -8,8 +8,8 @@ use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\JsonType;
 use Perks\Company\Company\Domain\CompanyPerk;
 use Perks\Company\Company\Domain\CompanyPerks;
+use Perks\Company\Perk\Domain\PerkName;
 use Perks\Company\Shared\Domain\Perks\PerkId;
-use Perks\Company\Shared\Domain\Perks\PerkName;
 use Perks\Shared\Infrastructure\Doctrine\Dbal\DoctrineCustomType;
 use function Lambdish\Phunctional\map;
 

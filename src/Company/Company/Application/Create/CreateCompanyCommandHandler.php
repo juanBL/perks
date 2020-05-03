@@ -9,9 +9,9 @@ use Perks\Company\Company\Domain\CompanyName;
 use Perks\Company\Company\Domain\CompanyNumberEmployees;
 use Perks\Company\Company\Domain\CompanyPerk;
 use Perks\Company\Company\Domain\CompanyPerks;
+use Perks\Company\Perk\Domain\PerkName;
 use Perks\Company\Shared\Domain\Companies\CompanyId;
 use Perks\Company\Shared\Domain\Perks\PerkId;
-use Perks\Company\Shared\Domain\Perks\PerkName;
 use Perks\Shared\Domain\Bus\Command\CommandHandler;
 use function Lambdish\Phunctional\map;
 

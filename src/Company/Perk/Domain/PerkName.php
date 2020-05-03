@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Perks\Company\Shared\Domain\Perks;
+namespace Perks\Company\Perk\Domain;
 
 use Perks\Shared\Domain\ValueObject\StringValueObject;
 

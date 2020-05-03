@@ -2,12 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Perks\Company\Company\Domain;
+namespace Perks\Company\Perk\Domain;
 
-use Perks\Company\Perk\Domain\PerkName;
 use Perks\Company\Shared\Domain\Perks\PerkId;
 
-final class CompanyPerk
+final class Perk
 {
     private PerkId   $id;
     private PerkName $name;
@@ -16,11 +15,6 @@ final class CompanyPerk
     {
         $this->id   = $id;
         $this->name = $name;
-    }
-
-    public static function create(PerkId $id, PerkName $name): self
-    {
-        return new self($id, $name);
     }
 
     public function id(): PerkId
