@@ -17,6 +17,7 @@ final class CompanyType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        $formattedPerks = $this->formattedPerks($options['data']['perks']);
         $builder->add('name', TextType::class)->add(
             'logo',
             FileType::class,
@@ -34,16 +35,23 @@ final class CompanyType extends AbstractType
                 ]
             ]
         )->add('numberEmployees', NumberType::class)->add(
-            'perks',
+            'perksToSelect',
             ChoiceType::class,
             [
-                'choices' => [
-                    'Maybe' => null,
-                    'Yes'   => true,
-                    'No'    => false,
-                ],
+                'choices'  => array_flip($formattedPerks),
+                'mapped'   => true,
                 'multiple' => true
             ]
         )->add('submit', SubmitType::class);
+    }
+
+    private function formattedPerks(array $perks): array
+    {
+        $formattedPerks = [];
+        foreach ($perks as $perk) {
+            $formattedPerks[$perk['id']] = $perk['name'];
+        }
+
+        return $formattedPerks;
     }
 }
