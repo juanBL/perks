@@ -79,4 +79,9 @@ final class Company extends AggregateRoot
     {
         return $this->active = new CompanyActive(false);
     }
+
+    public function updatePerks(CompanyPerks $perks): CompanyPerks
+    {
+        return $this->perks = $perks;
+    }
 }

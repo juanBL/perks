@@ -17,3 +17,8 @@ company_deactivate_put:
   path: /company/{companyId}/deactivate
   controller: Perks\Apps\Backoffice\Frontend\Controller\Companies\CompanyDeactivatePutWebController
   methods:  [GET]
+
+company_perks_post:
+  path: /company/{companyId}
+  controller: Perks\Apps\Backoffice\Frontend\Controller\Companies\CompanyProfilePerksPostWebController
+  methods:  [POST]

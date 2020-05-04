@@ -7,6 +7,7 @@ namespace Perks\Apps\Backoffice\Frontend\Controller\Companies;
 use Perks\Apps\Backoffice\Frontend\Controller\Companies\Form\Type\PerksType;
 use Perks\Company\Company\Application\CompanyResponse;
 use Perks\Company\Company\Application\FindById\FindByIdCompanyQuery;
+use Perks\Company\Company\Application\Update\Perks\UpdateCompanyPerksCommand;
 use Perks\Company\Perk\Application\PerkResponse;
 use Perks\Company\Perk\Application\PerksResponse;
 use Perks\Company\Perk\Application\SearchAll\SearchAllPerksQuery;
@@ -16,7 +17,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use function Lambdish\Phunctional\map;
 
-final class CompanyProfileGetWebController extends WebController
+final class CompanyProfilePerksPostWebController extends WebController
 {
     protected function exceptions(): array
     {
@@ -32,6 +33,18 @@ final class CompanyProfileGetWebController extends WebController
             PerksType::class,
             ['selectedPerks' => $companyResponse->perks(), 'perks' => $this->perks()]
         );
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $selectedPerks = $this->selectedPerks($form->getData());
+            $this->dispatch(new UpdateCompanyPerksCommand($companyId, $selectedPerks));
+
+            return $this->redirectWithMessage(
+                'company_profile_get',
+                sprintf('Los perks de la empresa han sido actualizados!'),
+                ['companyId' => $companyId]
+            );
+        }
 
         return $this->render(
             'pages/companies/company.html.twig',
@@ -66,6 +79,20 @@ final class CompanyProfileGetWebController extends WebController
                 ];
             },
             $perksResponse->perks()
+        );
+    }
+
+    private function selectedPerks(array $data): array
+    {
+        $perks = $data['perks'];
+
+        return map(
+            static function (string $id) use ($perks) {
+                $key = array_search($id, array_column($perks, 'id'), true);
+
+                return $perks[$key];
+            },
+            $data['perksToSelect']
         );
     }
 }

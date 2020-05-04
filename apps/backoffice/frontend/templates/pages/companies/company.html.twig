@@ -22,6 +22,21 @@
     <div class="clearfix mb-10"></div>
     <hr class="mb-10">
 
+    {{ form_start(form, { 'action': path('company_perks_post', {'companyId': company.id}), 'attr': { 'class': 'w-full max-w-lg float-right bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4' } }) }}
+
+
+    <div class="mb-6">
+        {{ form_label(form.perksToSelect, 'Nombre', {'attr': {'class': 'block text-gray-700 text-sm font-bold mb-2'}}) }}
+        {{ form_widget(form.perksToSelect, {'attr': {'class': 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'}}) }}
+    </div>
+
+    <div class="flex items-center justify-between">
+        {{ form_widget(form.submit, {'attr': {'class': 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'}}) }}
+    </div>
+
+    {{ form_end(form) }}
+
+
     <a  href="{{ path('company_get') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
         Volver al listado
     </a>
