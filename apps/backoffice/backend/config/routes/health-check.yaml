@@ -1,4 +1,0 @@
-health-check_get:
-  path: /health-check
-  controller: Perks\Apps\Backoffice\Backend\Controller\HealthCheck\HealthCheckGetController
-  methods:  [GET]
